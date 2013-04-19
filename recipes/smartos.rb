@@ -28,7 +28,9 @@ include_recipe 'pkgin'
   binutils
 }.each do |pkg|
 
-  r = pkgin_package pkg do
+  # This requires inclusion of the "smartos" cookbook elsewhere so that the
+  # pkgin backend to the `package` provider is hooked up.
+  r = package pkg do
     action( node['build_essential']['compiletime'] ? :nothing : :install )
   end
   r.run_action(:install) if node['build_essential']['compiletime']
