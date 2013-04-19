@@ -26,8 +26,8 @@ packages = %w{
 }
 
 %w{libs runtime}.each do |subpkg|
-  `pkgin search gcc47-#{subpkg}`
-  if $? == 0
+  pkgin_output = `pkgin search gcc47-#{subpkg}`
+  if $? == 0 && pkgin_output !~ /no results found for gcc47-#{subpkg}/i
     packages << "gcc47-#{subpkg}"
   end
 end
