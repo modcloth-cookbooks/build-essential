@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-include_recipe 'pkgin'
-
 packages = %w{
   gcc47
   scmgit-base
