@@ -12,5 +12,5 @@ end
 
 supports "mac_os_x", ">= 10.6.0"
 supports "mac_os_x_server", ">= 10.6.0"
-suggests "pkgin" # SmartOS
+suggests "smartos" # SmartOS
 suggests "pkgutil" # Solaris 2

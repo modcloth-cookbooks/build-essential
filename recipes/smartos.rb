@@ -17,18 +17,26 @@
 # limitations under the License.
 #
 
-include_recipe 'pkgin'
-
-%w{
+packages = %w{
   gcc47
-  gcc47-runtime
   scmgit-base
   gmake
   pkg-config
   binutils
-}.each do |pkg|
+}
 
-  r = pkgin_package pkg do
+%w{libs runtime}.each do |subpkg|
+  pkgin_output = `pkgin search gcc47-#{subpkg}`
+  if $? == 0 && pkgin_output !~ /no results found for gcc47-#{subpkg}/i
+    packages << "gcc47-#{subpkg}"
+  end
+end
+
+packages.each do |pkg|
+
+  # This requires inclusion of the "smartos" cookbook elsewhere so that the
+  # pkgin backend to the `package` provider is hooked up.
+  r = package pkg do
     action( node['build_essential']['compiletime'] ? :nothing : :install )
   end
   r.run_action(:install) if node['build_essential']['compiletime']
