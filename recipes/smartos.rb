@@ -19,14 +19,22 @@
 
 include_recipe 'pkgin'
 
-%w{
+packages = %w{
   gcc47
-  gcc47-runtime
   scmgit-base
   gmake
   pkg-config
   binutils
-}.each do |pkg|
+}
+
+%w{libs runtime}.each do |subpkg|
+  `pkgin search gcc47-#{subpkg}`
+  if $? == 0
+    packages << "gcc47-#{subpkg}"
+  end
+end
+
+packages.each do |pkg|
 
   # This requires inclusion of the "smartos" cookbook elsewhere so that the
   # pkgin backend to the `package` provider is hooked up.
