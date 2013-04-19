@@ -63,7 +63,7 @@ when "centos", "redhat", "suse", "fedora", "scientific", "amazon", "ubuntu","deb
 
 when "smartos"
     # include_recipe 'pkgin'
-    %w{gcc47 gcc47-runtime scmgit-base gmake pkg-config binutils}.each do |pkg|
+    %w{gcc47 gcc47-libs scmgit-base gmake pkg-config binutils}.each do |pkg|
 			package pkg do 
       	action :install 
     	end
